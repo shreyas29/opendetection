@@ -14,7 +14,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <glob.h>
 
 
 
@@ -60,7 +59,6 @@ namespace od
     return ss.str();
   }
 
-  std::vector<std::string> myglob(const std::string &pat);
 
   void normL2(cv::Mat &descriptors);
 

@@ -8,6 +8,7 @@
 #include "common/pipeline/ODDetection.h"
 #include "common/pipeline/ODScene.h"
 #include <iostream>
+#include <opencv2/core/utility.hpp>
 #include <opencv2/videoio.hpp>
 #include <pcl/apps/3d_rec_framework/tools/openni_frame_source.h>
 
@@ -58,7 +59,7 @@ namespace od
   public:
     ODFrameGenerator(std::string const input = "")
     {
-      file_list_ = myglob(input);
+      glob(input, file_list_);
       curr_image_ = -1;
       exhausted_ = false;
     }

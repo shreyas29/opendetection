@@ -119,7 +119,7 @@ public:
     cameraID = 0;
     curr_image = -1;
     string test_images = tutorial_path + "Data/Lion/test_images/IMG_20150226_102852.jpg";
-    image_list = myglob(test_images);
+    glob(test_images, image_list);
 
     inputType = IMAGE_LIST;
 
@@ -131,7 +131,7 @@ public:
     {
       test_images = parser.get<string>("test_images");
       inputType = IMAGE_LIST;
-      image_list = myglob(test_images);
+      glob(test_images, image_list);
     }
     if (parser.get<string>("video").size() > 0) {
       video_read_path = parser.get<string>("video");
