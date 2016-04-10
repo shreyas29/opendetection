@@ -18,7 +18,15 @@
 #include <opencv2/viz.hpp>
 
 
-#include <sys/time.h>
+#if defined(_WIN32)
+    #define NOMINMAX
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #include <mmsystem.h>
+#else
+  #include <sys/time.h>
+#endif
+
 
 // PnP Tutorial
 #include "Mesh.h"

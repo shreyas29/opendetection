@@ -5,7 +5,6 @@
 #ifndef OPENDETECTION_UTILS_H
 #define OPENDETECTION_UTILS_H
 
-#include <sys/time.h>
 #include <boost/preprocessor.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
@@ -16,6 +15,15 @@
 #include <iostream>
 #include <glob.h>
 
+
+#if defined(_WIN32)
+  #define NOMINMAX
+  #define WIN32_LEAN_AND_MEAN
+  #include <windows.h>
+  #include <mmsystem.h>
+#else
+  #include <sys/time.h>
+#endif
 
 
 namespace bf = boost::filesystem;
@@ -121,13 +129,29 @@ namespace od
   class Timer
   {
   private:
-
-    timeval startTime;
-
+    double duration_;    
+	
   public:
+#if defined(_WIN32)
+    double tStart, tEnd, duration;
 
-    double duration_;
+    void start()
+    {
+      tStart = timeGetTime();
+    }
 
+    double stop()
+    {
+      tEnd = timeGetTime();
+      duration = tEnd - tStart;
+      duration_ = duration;
+      return duration;
+    }   
+#else
+    struct timeval startTime, endTime;
+    long seconds, useconds;
+    double duration;
+    
     void start()
     {
       gettimeofday(&startTime, NULL);
@@ -135,10 +159,6 @@ namespace od
 
     double stop()
     {
-      timeval endTime;
-      long seconds, useconds;
-      double duration;
-
       gettimeofday(&endTime, NULL);
 
       seconds = endTime.tv_sec - startTime.tv_sec;
@@ -148,10 +168,11 @@ namespace od
       duration_ = duration;
       return duration;
     }
-
-
+#endif
     double getDuration()
-    { return duration_; }
+    {
+      return duration_; 
+    }
 
     static void printTime(double duration)
     {

@@ -9,7 +9,14 @@
 #define UTILS_H_
 
 #include <iostream>
-#include <sys/time.h>
+#if defined(_WIN32)
+	#define NOMINMAX
+	#define WIN32_LEAN_AND_MEAN
+	#include <windows.h>
+	#include <mmsystem.h>
+#else
+	#include <sys/time.h>
+#endif
 
 #include "PnPProblem.h"
 #include "Model.h"

@@ -37,8 +37,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <opencv2/video/tracking.hpp>
 #include <opencv2/xfeatures2d.hpp>
 #include <opencv2/viz.hpp>
-#include <sys/time.h>
-#include <common/utils/utils.h>
 
 // PnP Tutorial
 #include "simple_ransac_detection/Mesh.h"
